@@ -1,4 +1,5 @@
 import requests
+import json
 
 url = "https://ussuyneumann.github.io/api-restaurantes/restaurantes.json"
 
@@ -23,4 +24,9 @@ if response.status_code == 200:
 else:
     print("Ocorreu um problema:", response.status_code)
 
-print(dados_restaurante["McDonald’s"])
+#criando arquivos json para cada restaurante
+for nome_restaurante, dados in dados_restaurante.items():
+    nome_arquivo = f"{nome_restaurante}.json"
+    for prato in dados:
+        with open(nome_arquivo, "w") as arquivo_restaurante:
+            json.dump(dados, arquivo_restaurante, indent=4)
